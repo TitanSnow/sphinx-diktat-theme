@@ -35,6 +35,22 @@
             position: relative;
             top: -1px;
         }
+        #relbar1 .brand-logo {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        #sidebar2 .collapsible-expander {
+            line-height: inherit;
+            padding-left: 12px;
+            padding-right: 12px;
+            margin-right: -12px;
+            border-radius: 50%;
+            font-size: 24px;
+        }
+        #sidebar2 .side-nav .collapsible-body li a {
+            font-weight: normal;
+        }
     </style>
 {%- endblock %}
 
@@ -53,8 +69,8 @@
             body.find('li, dd').addClass('collection-item')
             body.find('dl').addClass('with-header')
             body.find('dt').addClass('collection-header')
-            body.find('.viewcode-link').html('code').addClass('material-icons secondary-content')
-            body.find('.headerlink').html('link').addClass('material-icons secondary-content')
+            body.find('.viewcode-link').text('code').addClass('material-icons secondary-content')
+            body.find('.headerlink').text('link').addClass('material-icons secondary-content')
 
             // styles for sidebar
             var sidebar = $('#sidebar2')
@@ -62,7 +78,33 @@
             sidebar.children('ul').addClass('side-nav')[0].id = 'side-nav'
             sidebar.find('ul').addClass('collapsible')
             sidebar.find('li > a:first-child').addClass('collapsible-header')
-            sidebar.find('li > ul').addClass('collapsible-body').prev('a').click(function(e){e.preventDefault()})
+            sidebar.find('li > ul').addClass('collapsible-body').prev('a').each(function(i, item){
+                $('<span/>').text('expand_more').addClass('material-icons secondary-content collapsible-expander waves-effect')
+                            .click(function(e){
+                                var self = $(this)
+                                var opened = self.text() == 'expand_less'
+                                var collapsible = self.closest('.collapsible')
+                                collapsible.collapsible(opened ? 'close' : 'open', collapsible.children().has(self).index())
+                                if(!opened)
+                                    collapsible.closest('.collapsible').children().children('.collapsible-header').find('.collapsible-expander').text('expand_more')
+                                self.text(opened ? 'expand_more' : 'expand_less')
+                                e.stopPropagation()
+                                e.preventDefault()
+                            })
+                            .appendTo($(item))
+            })
+            sidebar.find('.collapsible-body li a').each(function(i, item){
+                var self = $(item)
+                for(var class_name of self.closest('li')[0].classList){
+                    var result = /^toctree-l(\d+)$/.exec(class_name)
+                    if(result)
+                        break
+                }
+                if(result){
+                    var level = parseInt(result[1])
+                    self.css('padding', '0 16px 0 ' + ((level - 1) * 15 + 16) + 'px')
+                }
+            })
             $('.btn-menu').sideNav()
         })
     //]]>
@@ -86,7 +128,7 @@
         <nav class="nav-extended">
             <div class="nav-wrapper">
                 <ul class="left">
-                    <a href="#" class="btn-menu" data-activates="side-nav">
+                    <a href="#" class="btn-menu waves-effect waves-light" data-activates="side-nav">
                         <i class="material-icons">menu</i>
                     </a>
                 </ul>
@@ -94,7 +136,7 @@
                 <ul class="right">
                     {%- for rellink in rellinks|reverse %}
                         <li>
-                            <a href="{{ pathto(rellink[0]) }}" title="{{ rellink[1]|striptags|e }}" {{ accesskey(rellink[2]) }}>
+                            <a href="{{ pathto(rellink[0]) }}" title="{{ rellink[1]|striptags|e }}" {{ accesskey(rellink[2]) }} class="waves-effect waves-light {% if rellink[3] not in (_('next'), _('previous')) %}hide-on-small-only{% endif %}">
                                 {%- if _('next') == rellink[3] %}
                                     <i class="material-icons">navigate_next</i>
                                 {%- elif _('previous') == rellink[3] %}
