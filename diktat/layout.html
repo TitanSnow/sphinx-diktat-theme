@@ -30,18 +30,23 @@
         }
         #relbar1 > nav > .nav-content {
             padding-bottom: 10px;
+            width: 100%;
+            overflow-x: overlay;
         }
-        #relbar1 > nav > .nav-content > .breadcrumb {
+        #relbar1 > nav > .nav-content > .nav-inner-content {
+            width: max-content;
+        }
+        #relbar1 > nav > .nav-content .breadcrumb {
             display: inline-block;
             line-height: 20px;
             vertical-align: middle;
             font-size: 14px;
             transition: .3s ease;
         }
-        #relbar1 > nav > .nav-content > .breadcrumb:hover {
+        #relbar1 > nav > .nav-content .breadcrumb:hover {
             color: #fff;
         }
-        #relbar1 > nav > .nav-content > .breadcrumb:first-child {
+        #relbar1 > nav > .nav-content .breadcrumb:first-child {
             padding-left: 17px;
         }
         #relbar1 > nav > .nav-content span.material-icons {
@@ -163,6 +168,9 @@
         }
         .body .admonition.hint, .body .admonition.tip {
             background-color: #f9fbe7;
+        }
+        .body .collection-header, .body .collection-item {
+            overflow-x: overlay;
         }
 
         #side-nav.persistent-side-nav {
@@ -368,13 +376,15 @@
                 </ul>
             </div>
             <div class="nav-content">
-                <a href="{{ pathto(master_doc) }}" class="breadcrumb">
-                    <span class="material-icons">home</span>
-                </a>
-                {%- for parent in parents %}
-                    <a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey( "U") }}{% endif %} class="breadcrumb">{{ parent.title }}</a>
-                {%- endfor %}
-                <a href="#" class="breadcrumb">{{ title }}</a>
+                <div class="nav-inner-content">
+                    <a href="{{ pathto(master_doc) }}" class="breadcrumb">
+                        <span class="material-icons">home</span>
+                    </a>
+                    {%- for parent in parents %}
+                        <a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey( "U") }}{% endif %} class="breadcrumb">{{ parent.title }}</a>
+                    {%- endfor %}
+                    <a href="#" class="breadcrumb">{{ title }}</a>
+                </div>
             </div>
         </nav>
     </div>
