@@ -82,6 +82,21 @@
         #sidebar2 .side-nav .collapsible-body li a {
             font-weight: normal;
         }
+        #searchbox {
+            margin: 0 6px 20px;
+            padding: 0 10px;
+            position: relative;
+        }
+        #searchbox > button {
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            border: none;
+            background-color: white;
+        }
+        #searchbox > * {
+            margin: 0;
+        }
 
         .body h1 {
             font-size: 24px;
@@ -211,6 +226,21 @@
                 })
             }
 
+            $.fn.toctree_index = function(){
+                var self = $($(this)[0])
+                var count = 0
+                self.prevAll().each(function(i, item){
+                    for(var class_name of item.classList){
+                        var result = /^toctree-l(\d+)$/.exec(class_name)
+                        if(result){
+                            ++count
+                            break
+                        }
+                    }
+                })
+                return count
+            }
+
             // general styles
             var body = $('.body')
             body.find('.container').removeClass('container')
@@ -229,14 +259,14 @@
             sidebar.children('.caption').addClass('hide')
             sidebar.children('ul').addClass('side-nav')[0].id = 'side-nav'
             sidebar.find('ul').addClass('collapsible')
-            sidebar.find('li > a:first-child').addClass('collapsible-header')
+            sidebar.find('li > a:first-child').addClass('collapsible-header truncate')
             sidebar.find('li > ul').addClass('collapsible-body').prev('a').each(function(i, item){
                 $('<span/>').text('expand_more').addClass('material-icons secondary-content collapsible-expander waves-effect')
                             .click(function(e){
                                 var self = $(this)
                                 var opened = self.text() == 'expand_less'
                                 var collapsible = self.closest('.collapsible')
-                                collapsible.collapsible(opened ? 'close' : 'open', collapsible.children().has(self).index())
+                                collapsible.collapsible(opened ? 'close' : 'open', collapsible.children().has(self).toctree_index())
                                 if(!opened)
                                     collapsible.closest('.collapsible').children().children('.collapsible-header').find('.collapsible-expander').text('expand_more')
                                 self.text(opened ? 'expand_more' : 'expand_less')
@@ -259,8 +289,22 @@
             })
             sidebar.find('.collapsible').each(function(i, item){
                 var self = $(item)
-                self.collapsible('open', self.children('.current').index())
+                var cur = self.children('.current')
+                cur.find('.collapsible-expander').text('expand_less')
+                self.collapsible('open', cur.toctree_index())
             })
+            var search_card = $(
+                '<li>' +
+                    '<form class="card-panel hoverable" id="searchbox" action="{{ pathto('search') }}" method="get">' +
+                        '<input type="text" name="q"/>' +
+                        '<button type="submit"><i class="material-icons">search</i></button>' +
+                        '<input type="hidden" name="check_keywords" value="yes"/>' +
+                        '<input type="hidden" name="area" value="default"/>' +
+                    '</form>' +
+                '</li>'
+            )
+            sidebar.find('#side-nav').prepend(search_card)
+
             var sidenav_trigger = $('<a href="#" data-activates="side-nav"/>')
             sidenav_trigger.sideNav()
             $('#side-nav').data('opened', false)
