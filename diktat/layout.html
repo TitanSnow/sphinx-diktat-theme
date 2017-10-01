@@ -17,6 +17,7 @@
         }
         .body.container, #footer .container {
             max-width: 800px;
+            margin-top: 100px;
         }
         #footer {
             margin-top: 50px;
@@ -67,9 +68,6 @@
             -webkit-transform: initial;
             max-width: calc(100% - 3 * 54px);
         }
-        #header-space {
-            height: 100px;
-        }
 
         #sidebar2 .collapsible-expander {
             line-height: inherit;
@@ -89,10 +87,12 @@
         }
         #searchbox > button {
             position: absolute;
-            top: 10px;
+            top: 5px;
             right: 5px;
             border: none;
             background-color: white;
+            padding: 6px;
+            border-radius: 50%;
         }
         #searchbox > * {
             margin: 0;
@@ -186,6 +186,15 @@
         }
         .body .collection-header, .body .collection-item {
             overflow-x: overlay;
+        }
+        .body :target:before {
+            content: "";
+            display: block;
+            margin-top: -100px;
+            padding-top: 100px;
+            background-clip: content-box;
+            width: 0;
+            height: 0;
         }
 
         #side-nav.persistent-side-nav {
@@ -290,14 +299,22 @@
             sidebar.find('.collapsible').each(function(i, item){
                 var self = $(item)
                 var cur = self.children('.current')
-                cur.find('.collapsible-expander').text('expand_less')
                 self.collapsible('open', cur.toctree_index())
+            })
+            sidebar.find('.active').children('a').children('.collapsible-expander').text('expand_less')
+            sidebar.find('li > a').click(function(){
+                if(!$('#side-nav').data('opened'))
+                    sidenav_trigger.sideNav('hide')
+                var self = $(this)
+                var collapsible = self.closest('.collapsible')
+                collapsible.closest('.collapsible').children().children('.collapsible-header').find('.collapsible-expander').text('expand_more')
+                self.children('.collapsible-expander').text('expand_less')
             })
             var search_card = $(
                 '<li>' +
                     '<form class="card-panel hoverable" id="searchbox" action="{{ pathto('search') }}" method="get">' +
                         '<input type="text" name="q"/>' +
-                        '<button type="submit"><i class="material-icons">search</i></button>' +
+                        '<button type="submit" class="waves-effect"><i class="material-icons">search</i></button>' +
                         '<input type="hidden" name="check_keywords" value="yes"/>' +
                         '<input type="hidden" name="area" value="default"/>' +
                     '</form>' +
@@ -438,7 +455,6 @@
             </div>
         </nav>
     </div>
-    <div id="header-space"></div>
 {%- endblock %}
 
 {%- block relbar2 %}{% endblock %}
