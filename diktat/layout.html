@@ -257,6 +257,10 @@
                     self.css('padding', '0 16px 0 ' + ((level - 1) * 15 + 16) + 'px')
                 }
             })
+            sidebar.find('.collapsible').each(function(i, item){
+                var self = $(item)
+                self.collapsible('open', self.children('.current').index())
+            })
             var sidenav_trigger = $('<a href="#" data-activates="side-nav"/>')
             sidenav_trigger.sideNav()
             $('#side-nav').data('opened', false)
@@ -328,6 +332,8 @@
                 if(opened && !persistent_width_enough())
                     hide_persistent(false)
             })
+            if(persistent_width_enough())
+                show_persistent(false)
         })
     //]]>
     </script>
