@@ -17,6 +17,8 @@
         }
         .body.container, #footer .container {
             max-width: 800px;
+        }
+        .body.container {
             margin-top: 100px;
         }
         #footer {
@@ -88,7 +90,7 @@
         #searchbox > button {
             position: absolute;
             top: 5px;
-            right: 5px;
+            right: 4px;
             border: none;
             background-color: white;
             padding: 6px;
@@ -270,6 +272,9 @@
             sidebar.find('ul').addClass('collapsible')
             sidebar.find('li > a:first-child').addClass('collapsible-header truncate')
             sidebar.find('li > ul').addClass('collapsible-body').prev('a').each(function(i, item){
+                var self = $(item)
+                var html = self.html()
+                self.html('<span class="left">' + html + '</span>')
                 $('<span/>').text('expand_more').addClass('material-icons secondary-content collapsible-expander waves-effect')
                             .click(function(e){
                                 var self = $(this)
@@ -282,7 +287,7 @@
                                 e.stopPropagation()
                                 e.preventDefault()
                             })
-                            .appendTo($(item))
+                            .appendTo(self)
             })
             sidebar.find('.collapsible-body li a').each(function(i, item){
                 var self = $(item)
