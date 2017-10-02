@@ -199,15 +199,6 @@
         .body .collection-header, .body .collection-item {
             overflow-x: overlay;
         }
-        .body :target:before {
-            content: "";
-            display: block;
-            margin-top: -100px;
-            padding-top: 100px;
-            background-clip: content-box;
-            width: 0;
-            height: 0;
-        }
         .body table.modindextable tr {
             transition: border-bottom-color .3s ease;
         }
@@ -432,11 +423,23 @@
                             event.preventDefault()
                             history.replaceState(undefined, undefined, this.hash)
                             $('html, body').animate({
-                                scrollTop: target.offset().top - (target.is($(':target')) ? 0 : 130)
+                                scrollTop: target.offset().top - 130
                             }, 300)
                         }
                     }
                 })
+            if(location.hash){
+                var track_times = 0
+                var target = $(document.getElementById(location.hash.slice(1)))
+                target = target.length ? target : $('[name="' + location.hash.slice(1) + '"]')
+                if(target.length)
+                    var track_id = setInterval(function(){
+                        if(track_times++ >= 10)
+                            clearInterval(track_id)
+                        else
+                            $('html, body').scrollTop(target.offset().top - 130)
+                    }, 10)
+            }
         })
     //]]>
     </script>
