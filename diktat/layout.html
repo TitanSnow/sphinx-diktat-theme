@@ -82,12 +82,12 @@
         #sidebar2 .side-nav .collapsible-body li a {
             font-weight: normal;
         }
-        #searchbox {
+        .searchbox {
             margin: 0 6px 20px;
             padding: 0 10px;
             position: relative;
         }
-        #searchbox > button {
+        .searchbox > button {
             position: absolute;
             top: 5px;
             right: 4px;
@@ -96,8 +96,18 @@
             padding: 6px;
             border-radius: 50%;
         }
-        #searchbox > * {
+        .searchbox > * {
+            margin: 0 !important;
+        }
+        #search-progress {
+            margin-left: 15px;
+        }
+        #search-results > ul > li {
+            background-color: #fff;
+            line-height: 1.5rem;
+            padding: 10px 20px;
             margin: 0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .body h1 {
@@ -317,7 +327,7 @@
             })
             var search_card = $(
                 '<li>' +
-                    '<form class="card-panel hoverable" id="searchbox" action="{{ pathto('search') }}" method="get">' +
+                    '<form class="card-panel hoverable searchbox" action="{{ pathto('search') }}" method="get">' +
                         '<input type="text" name="q"/>' +
                         '<button type="submit" class="waves-effect"><i class="material-icons">search</i></button>' +
                         '<input type="hidden" name="check_keywords" value="yes"/>' +
