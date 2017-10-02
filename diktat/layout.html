@@ -15,44 +15,44 @@
         .document {
             flex: 1 0 auto;
         }
-        .body.container, #footer .container {
+        .body.container, #__footer .container {
             max-width: 800px;
         }
         .body.container {
             margin-top: 100px;
         }
-        #footer {
+        #__footer {
             margin-top: 50px;
             padding: 16px 0;
             font-size: 12px;
         }
 
-        #relbar1 > nav {
+        #__relbar1 > nav {
             left: 0;
             top: 0;
         }
-        #relbar1 > nav > .nav-content {
+        #__relbar1 > nav > .nav-content {
             padding-bottom: 10px;
             width: 100%;
             overflow-x: overlay;
         }
-        #relbar1 > nav > .nav-content > .nav-inner-content {
+        #__relbar1 > nav > .nav-content > .nav-inner-content {
             width: max-content;
         }
-        #relbar1 > nav > .nav-content .breadcrumb {
+        #__relbar1 > nav > .nav-content .breadcrumb {
             display: inline-block;
             line-height: 20px;
             vertical-align: middle;
             font-size: 14px;
             transition: .3s ease;
         }
-        #relbar1 > nav > .nav-content .breadcrumb:hover {
+        #__relbar1 > nav > .nav-content .breadcrumb:hover {
             color: #fff;
         }
-        #relbar1 > nav > .nav-content .breadcrumb:first-child {
+        #__relbar1 > nav > .nav-content .breadcrumb:first-child {
             padding-left: 17px;
         }
-        #relbar1 > nav > .nav-content span.material-icons {
+        #__relbar1 > nav > .nav-content span.material-icons {
             display: inline-block;
             line-height: 20px;
             font-size: 20px;
@@ -60,7 +60,7 @@
             position: relative;
             top: -1px;
         }
-        #relbar1 .brand-logo {
+        #__relbar1 .brand-logo {
             padding-left: 15px;
             padding-right: 15px;
             font-size: 20px;
@@ -71,7 +71,7 @@
             max-width: calc(100% - 3 * 54px);
         }
 
-        #sidebar2 .collapsible-expander {
+        #__sidebar2 .collapsible-expander {
             line-height: inherit;
             padding-left: 12px;
             padding-right: 12px;
@@ -79,7 +79,7 @@
             border-radius: 50%;
             font-size: 24px;
         }
-        #sidebar2 .side-nav .collapsible-body li a {
+        #__sidebar2 .side-nav .collapsible-body li a {
             font-weight: normal;
         }
         .searchbox {
@@ -206,17 +206,17 @@
             border-bottom: solid 1px #ee6e73;
         }
         .body .target {
-            background-color: #fff59d !important;
+            background-color: #fff9c4 !important;
         }
 
-        #side-nav.persistent-side-nav {
+        #__side-nav.persistent-side-nav {
             transform: initial !important;
             -webkit-transform: initial !important;
         }
         body.padded-body {
             padding-left: 300px;
         }
-        #side-nav.transiting {
+        #__side-nav.transiting {
             transition: transform .3s ease, -webkit-transform .3s ease
         }
         body.transiting {
@@ -277,9 +277,9 @@
             body.find('table.modindextable').addClass('bordered')
 
             // styles for sidebar
-            var sidebar = $('#sidebar2')
+            var sidebar = $('#__sidebar2')
             sidebar.children('.caption').addClass('hide')
-            sidebar.children('ul').addClass('side-nav')[0].id = 'side-nav'
+            sidebar.children('ul').addClass('side-nav')[0].id = '__side-nav'
             sidebar.find('ul').addClass('collapsible')
             sidebar.find('li > a:first-child').addClass('collapsible-header truncate')
             sidebar.find('li > ul').addClass('collapsible-body').prev('a').each(function(i, item){
@@ -319,7 +319,7 @@
             })
             sidebar.find('.active').children('a').children('.collapsible-expander').text('expand_less')
             sidebar.find('li > a').click(function(){
-                if(!$('#side-nav').data('opened'))
+                if(!$('#__side-nav').data('opened'))
                     sidenav_trigger.sideNav('hide')
                 var self = $(this)
                 var collapsible = self.closest('.collapsible')
@@ -336,17 +336,17 @@
                     '</form>' +
                 '</li>'
             )
-            sidebar.find('#side-nav').prepend(search_card)
+            sidebar.find('#__side-nav').prepend(search_card)
 
-            var sidenav_trigger = $('<a href="#" data-activates="side-nav"/>')
+            var sidenav_trigger = $('<a href="#" data-activates="__side-nav"/>')
             sidenav_trigger.sideNav()
-            $('#side-nav').data('opened', false)
+            $('#__side-nav').data('opened', false)
             function persistent_width_enough(){
                 return $(window).width() >= 300 + 800 / 0.7
             }
             function untransiting_persistent(){
                 var body = $('body')
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 setTimeout(function(){
                     nav.transiting(false)
                     body.transiting(false)
@@ -354,13 +354,13 @@
             }
             function transiting_persistent(){
                 var body = $('body')
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 nav.transiting()
                 body.transiting()
             }
             function show_persistent(transition_flag){
                 var body = $('body')
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 sidenav_trigger.sideNav('hide')
                 if(transition_flag){
                     transiting_persistent()
@@ -376,7 +376,7 @@
             }
             function hide_persistent(transition_flag){
                 var body = $('body')
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 if(transition_flag){
                     transiting_persistent()
                     untransiting_persistent()
@@ -387,7 +387,7 @@
             }
             $('.btn-menu').click(function(e){
                 e.preventDefault()
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 var opened = nav.data('opened')
                 if(!opened){
                     if(persistent_width_enough()){
@@ -404,7 +404,7 @@
                 }
             })
             $(window).resize(function(){
-                var nav = $('#side-nav')
+                var nav = $('#__side-nav')
                 var opened = nav.data('opened')
                 if(opened && !persistent_width_enough())
                     hide_persistent(false)
@@ -458,13 +458,13 @@
 {%- endblock %}
 
 {%- block sidebar2 %}
-    <div id="sidebar2">
+    <div id="__sidebar2">
         {{ toctree(collapse=False) }}
     </div>
 {%- endblock %}
 
 {%- block relbar1 %}
-    <div class="navbar-fixed" id="relbar1">
+    <div class="navbar-fixed" id="__relbar1">
         <nav class="nav-extended">
             <div class="nav-wrapper">
                 <ul class="left">
@@ -511,7 +511,7 @@
 {%- block relbar2 %}{% endblock %}
 
 {%- block footer %}
-    <div id="footer" class="page-footer">
+    <div id="__footer" class="page-footer">
         <div class="container">
             {{ super() }}
         </div>
