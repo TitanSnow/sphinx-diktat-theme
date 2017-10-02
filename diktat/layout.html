@@ -205,6 +205,9 @@
         .body table.modindextable tr:hover {
             border-bottom: solid 1px #ee6e73;
         }
+        .body .target {
+            background-color: #fff59d !important;
+        }
 
         #side-nav.persistent-side-nav {
             transform: initial !important;
@@ -422,6 +425,8 @@
                         if (target.length){
                             event.preventDefault()
                             history.replaceState(undefined, undefined, this.hash)
+                            $('.target').removeClass('target')
+                            target.addClass('target')
                             $('html, body').animate({
                                 scrollTop: target.offset().top - 130
                             }, 300)
@@ -440,6 +445,7 @@
                             $('html, body').scrollTop(target.offset().top - 130)
                     }, 10)
             }
+            $(':target').addClass('target')
         })
     //]]>
     </script>
