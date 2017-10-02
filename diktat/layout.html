@@ -208,6 +208,12 @@
             width: 0;
             height: 0;
         }
+        .body table.modindextable tr {
+            transition: border-bottom-color .3s ease;
+        }
+        .body table.modindextable tr:hover {
+            border-bottom: solid 1px #ee6e73;
+        }
 
         #side-nav.persistent-side-nav {
             transform: initial !important;
@@ -274,6 +280,7 @@
             body.find('.viewcode-link').text('code').addClass('material-icons secondary-content')
             body.find('.headerlink').text('link').addClass('material-icons secondary-content')
             body.find('.admonition, .highlight').addClass('card-panel')
+            body.find('table.modindextable').addClass('bordered')
 
             // styles for sidebar
             var sidebar = $('#sidebar2')
