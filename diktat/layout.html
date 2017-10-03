@@ -38,10 +38,13 @@
         #__relbar1 > nav > .nav-content {
             padding-bottom: 10px;
             width: 100%;
+            overflow-x: auto;
             overflow-x: overlay;
         }
         #__relbar1 > nav > .nav-content > .nav-inner-content {
             width: max-content;
+            width: -webkit-max-content;
+            width: -moz-max-content;
         }
         #__relbar1 > nav > .nav-content .breadcrumb {
             display: inline-block;
@@ -208,6 +211,7 @@
             background-color: #f9fbe7;
         }
         .body .collection-header, .body .collection-item {
+            overflow-x: auto;
             overflow-x: overlay;
         }
         .body table.modindextable tr {
