@@ -1,11 +1,15 @@
 {%- extends "basic/layout.html" %}
 
+{%- block doctype %}
+<!doctype html>
+{%- endblock %}
+
 {%- block csss %}
     {{ super() }}
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,500,700"/>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
-    <style>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen"/>
+    <style media="screen">
     /*<![CDATA[*/
         body {
             display: flex;
@@ -70,6 +74,9 @@
             -webkit-transform: initial;
             max-width: calc(100% - 3 * 54px);
         }
+        #__relbar1 > nav ul li {
+            height: 64px;
+        }
 
         #__sidebar2 .collapsible-expander {
             line-height: inherit;
@@ -95,6 +102,10 @@
             background-color: white;
             padding: 6px;
             border-radius: 50%;
+            box-sizing: content-box;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
         }
         .searchbox > * {
             margin: 0 !important;
@@ -468,9 +479,11 @@
         <nav class="nav-extended">
             <div class="nav-wrapper">
                 <ul class="left">
-                    <a href="#" class="btn-menu waves-effect waves-light">
-                        <i class="material-icons">menu</i>
-                    </a>
+                    <li>
+                        <a href="#" class="btn-menu waves-effect waves-light">
+                            <i class="material-icons">menu</i>
+                        </a>
+                    </li>
                 </ul>
                 <span class="brand-logo truncate">{{ shorttitle|e }}</span>
                 <ul class="right">
