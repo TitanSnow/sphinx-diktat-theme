@@ -210,11 +210,11 @@
             font-weight: 500;
         }
         .body .collection.with-header .collection-header {
-            border-top: solid 2px #ee6e73;
+            border-top: solid 2px {{ theme_master_color }};
         }
         .body .card-panel .admonition-title {
-            font-size: 24px;
-            font-weight: 300;
+            font-size: 1.14rem;
+            font-weight: 500;
         }
         .body .admonition.note {
             background-color: #e0f2f1;
@@ -255,6 +255,10 @@
         }
         body.transiting {
             transition: padding-left .3s ease;
+        }
+
+        nav, .page-footer {
+            background-color: {{ theme_master_color }};
         }
     /*]]>*/
     </style>
