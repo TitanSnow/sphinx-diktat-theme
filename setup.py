@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='diktat',
-    version='0.1.dev1',
+    version='0.1.dev2',
     description='A material designed sphinx theme for private use',
     long_description=open('README.rst').read(),
     author='TitanSnow',
