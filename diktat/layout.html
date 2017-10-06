@@ -36,13 +36,13 @@
             top: 0;
         }
         #__relbar1 > nav > .nav-content {
-            padding-bottom: 10px;
             width: 100%;
             overflow-x: auto;
             overflow-x: overlay;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
         #__relbar1 > nav > .nav-content > .nav-inner-content {
+            padding-bottom: 10px;
             width: max-content;
             width: -webkit-max-content;
             width: -moz-max-content;
@@ -466,6 +466,20 @@
                     }, 10)
             }
             $(':target').addClass('target')
+
+            var scroll_top = $(document).scrollTop()
+            $(document).scroll(function(){
+                requestAnimationFrame(function(){
+                    var nav_icontent = $('#__relbar1 .nav-inner-content')
+                    var new_scroll_top = $(document).scrollTop()
+                    var diff = new_scroll_top - scroll_top
+                    scroll_top = new_scroll_top
+                    var height = nav_icontent.outerHeight()
+                    var margin = parseFloat(nav_icontent.css('margin-top'))
+                    var new_margin = Math.max(Math.min(margin - diff, 0), -height)
+                    nav_icontent.css('margin-top', new_margin + 'px')
+                })
+            })
         })
     //]]>
     </script>
